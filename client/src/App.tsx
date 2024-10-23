@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Layout, Menu, MenuProps } from "antd";
-import { Content, Footer } from "antd/es/layout/layout";
+import { Content, Footer} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import {
   DashboardOutlined,
@@ -42,7 +42,7 @@ const items: MenuItem[] = [
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Layout className=" bg-red-400 flex ">
+    <Layout className="flex ">
       <Sider
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
