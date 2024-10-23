@@ -31,11 +31,11 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem(<NavLink to="/dashboard">"Dashboard"</NavLink>, 1, <DashboardOutlined />),
-  getItem(<NavLink to="/place-order">"Place Order"</NavLink>, 2, <ShoppingCartOutlined />),
-  getItem(<NavLink to="/customers">"Customers"</NavLink>, 3, <UserOutlined />),
-  getItem(<NavLink to="/items">"Items"</NavLink>, 4, <ShoppingOutlined />),
-  getItem(<NavLink to="/orders">"Orders"</NavLink>, 5, <FileTextOutlined />),
+  getItem(<NavLink to="/dashboard">Dashboard</NavLink>, 1, <DashboardOutlined />),
+  getItem(<NavLink to="/place-order">Place Order</NavLink>, 2, <ShoppingCartOutlined />),
+  getItem(<NavLink to="/customers">Customers</NavLink>, 3, <UserOutlined />),
+  getItem(<NavLink to="/items">Items</NavLink>, 4, <ShoppingOutlined />),
+  getItem(<NavLink to="/orders">Orders</NavLink>, 5, <FileTextOutlined />),
 ];
 
 
