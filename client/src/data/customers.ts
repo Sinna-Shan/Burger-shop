@@ -101,6 +101,8 @@ const last = [
   "Correa",
   "Quintana",
   "Gomez",
+  "Solamons",
+  "Vaine"
 ];
 
 const first = [
@@ -204,6 +206,7 @@ const first = [
   "Major",
   "Joyce",
   "Zakai",
+  "Bruse",
 ];
 
 function genID(key: number): string {

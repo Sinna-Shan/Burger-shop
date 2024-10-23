@@ -6,8 +6,9 @@ import { FaCirclePlus } from "react-icons/fa6";
 
 interface MainLayoutProps<T> {
   data: T[];
-  setData: (data: T[]) => void;
+  setData?: (data: T[]) => void;
   initialData: T[];
+  setOpen?: (data: boolean) => void;
   children: React.ReactNode;
 }
 
@@ -15,6 +16,7 @@ const MainLayout = <T extends object>({
   data,
   setData,
   initialData,
+  setOpen,
   children,
 }: MainLayoutProps<T>) => {
   const [search, setSearch] = useState("");
@@ -22,9 +24,9 @@ const MainLayout = <T extends object>({
   function handleSearch(value: string) {
     setSearch(value);
     if (!value) {
-      setData(initialData);
+      setData?.(initialData);
     } else {
-      setData(
+      setData?.(
         data.filter((item: T) =>
           Object.keys(item).some((key) =>
             String(item[key as keyof T]).includes(value)
@@ -45,7 +47,7 @@ const MainLayout = <T extends object>({
           enterButton
           allowClear
         />
-        <Button type="primary">
+        <Button type="primary" onClick={() => setOpen?.(true)}>
           <FaCirclePlus />
           Add
         </Button>
