@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { Form, Input, Modal } from "antd";
-import React, { useEffect } from "react";
-import { Customer } from "./customers.types";
+import { useEffect, useMemo } from "react";
+import { Customer, CustomerModelType } from "./customers.types";
 
 const CustomerModal = ({
   open,
@@ -8,15 +9,17 @@ const CustomerModal = ({
   setCustomers,
   customers,
   recordData,
-}) => {
+}: CustomerModelType) => {
   const [form] = Form.useForm();
-  const initialValues = {
-    id: recordData?.id ?? "",
-    first_name: recordData?.first_name ?? "",
-    last_name: recordData?.last_name ?? "",
-    mobile: recordData?.mobile ?? "",
-    email: recordData?.email ?? "",
-  };
+  const initialValues = useMemo(() => {
+    return {
+      id: recordData?.id ?? "",
+      first_name: recordData?.first_name ?? "",
+      last_name: recordData?.last_name ?? "",
+      mobile: recordData?.mobile ?? "",
+      email: recordData?.email ?? "",
+    };
+  }, [recordData]);
 
   const onFinish = async () => {
     const data = await form.validateFields();
@@ -61,11 +64,7 @@ const CustomerModal = ({
         initialValues={recordData ? initialValues : {}}
         preserve={false}
       >
-        <Form.Item
-          label="ID"
-          name="id"
-          hidden={true}
-        >
+        <Form.Item label="ID" name="id" hidden={true}>
           <Input placeholder="First name" />
         </Form.Item>
         <Form.Item

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface Customer {
   id: string;
   first_name: string;
@@ -5,4 +6,12 @@ export interface Customer {
   mobile: string;
   email: string;
   orders: unknown[];
+}
+
+export interface CustomerModelType {
+  open: boolean;
+  onClose: (open: boolean) => void;
+  setCustomers: (customers: Customer[]) => void;
+  customers: Customer[];
+  recordData?: Customer | null;
 }
