@@ -4,11 +4,12 @@ import itemData from "../../data/items";
 import { Popconfirm, Table } from "antd";
 import ItemModal from "./ItemModal";
 import { FaPencil, FaRegTrashCan } from "react-icons/fa6";
+import { Item } from "./item.types";
 
 const Items = () => {
-  const [items, setItems] = useState(itemData);
+  const [items, setItems] = useState<Item[] | undefined>(itemData);
   const [open, setOpen] = useState(false);
-  const [recordData, setRecordData] = useState(null);
+  const [recordData, setRecordData] = useState<Item | null>(null);
   const initialItems = itemData;
 
   function onClose() {
@@ -16,13 +17,13 @@ const Items = () => {
     setOpen(false);
   }
 
-  function handleUpdate(record) {
+  function handleUpdate(record: Item | null) {
     setRecordData(record);
     setOpen(true);
   }
 
-  function handleDelete(code) {
-    setItems(items.filter((item) => item.code !== code));
+  function handleDelete(code: string) {
+    setItems(items?.filter((item) => item.code !== code));
   }
   const columns = [
     { title: "Code", dataIndex: "code", key: "code" },
@@ -35,7 +36,7 @@ const Items = () => {
       title: "Options",
       dataIndex: "options",
       key: "options",
-      render: (_: unknown, record) => (
+      render: (_: unknown, record: Item) => (
         <div className="flex gap-3 text-xl">
           <FaPencil
             className="text-blue-800"

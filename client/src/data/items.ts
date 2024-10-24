@@ -1,11 +1,5 @@
-interface Item{
-    code: string;
-    name: string;
-    desc: string;
-    qty: number;
-    price: number;
-    discount: number;
-}
+import { Item } from "../pages/items/item.types";
+
 
 const generateItems = (count:number) => {
   const items = [];

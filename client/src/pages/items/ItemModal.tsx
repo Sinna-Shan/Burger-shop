@@ -1,7 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { Form, Input, Modal } from "antd";
 import React, { useEffect, useMemo } from "react";
+import {ItemModelType } from "./item.types";
 
-const ItemModal = ({ open, onClose, recordData, items, setItems }) => {
+const ItemModal = ({
+  open,
+  onClose,
+  recordData,
+  items = [],
+  setItems,
+}: ItemModelType) => {
   const [form] = Form.useForm();
 
   const initialValues = useMemo(() => {
@@ -32,7 +40,7 @@ const ItemModal = ({ open, onClose, recordData, items, setItems }) => {
         },
       ]);
     }
-    onClose(false);
+    onClose();
   };
 
   useEffect(() => {

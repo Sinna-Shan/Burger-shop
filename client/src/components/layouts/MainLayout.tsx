@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 
 interface MainLayoutProps<T> {
-  data: T[];
+  data: T[] | undefined;
   setData?: (data: T[]) => void;
   initialData: T[];
   setOpen?: (data: boolean) => void;
@@ -13,7 +13,7 @@ interface MainLayoutProps<T> {
 }
 
 const MainLayout = <T extends object>({
-  data,
+  data = [],
   setData,
   initialData,
   setOpen,
