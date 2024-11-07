@@ -7,6 +7,9 @@ const password = process.env.DB_PASSWORD;
 
 const sequelize = new Sequelize(db, user, password, {
   dialect: "mysql",
+  define: {
+    freezeTableName: true,
+  },
 });
 
 module.exports = sequelize;
