@@ -1,19 +1,22 @@
-const app = require("./main");
-const sequelize = require("./db");
-const User = require("./models/user");
+const app = require("./app");
 require("dotenv").config();
+const sequelize = require("./database");
+require("./models/associations");
 
-sequelize
-  .authenticate()
-  .then(() => console.log("Connected to database successfully."))
-  .catch((err) => console.log(err.message));
+const port = process.env.PORT || 5000;
 
-sequelize
-  .sync({ force: true })
-  .then(() => console.log("table created successfully."))
-  .catch((err) => console.log(err));
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connected to the database successfully.");
 
-const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`listing on port ${port}.`);
-});
+    await sequelize.sync({ force: true });
+    console.log("All models synchronized successfully.");
+
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+})();

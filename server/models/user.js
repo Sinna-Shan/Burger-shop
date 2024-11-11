@@ -1,39 +1,42 @@
-const Sequelize  = require("sequelize");
-const sequelize = require("../db");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../database");
+const order = require("../models/order");
 
 const User = sequelize.define("user", {
   user_id: {
-    type: Sequelize.DataTypes.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
   first_name: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   last_name: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
-  },
-  password: {
-    type: Sequelize.DataTypes.STRING,
-    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   nic: {
-    type: Sequelize.DataTypes.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
+    unique: true,
   },
   mobile: {
-    type: Sequelize.DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   role: {
-    type: Sequelize.DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.ENUM,
+    values: ["admin", "user"],
+    defaultValue: "user",
   },
 });
 
