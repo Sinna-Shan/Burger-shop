@@ -1,11 +1,34 @@
 const User = require("../models/user");
+const { Op } = require("sequelize");
 
 exports.getAllUsers = async (req, res) => {
-    try {
-        const users = await User.findAll();
+  try {
+    const queryObj = { ...req.query };
+    const excludeFields = ["limit", "sort", "page", "fields"];
+    excludeFields.forEach((field) => delete queryObj[field]);
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+
+    const offset = (page - 1) * limit;
+    const where = {};
+
+    for (const key in queryObj) {
+      if (queryObj[key]) {
+        where[key] = { [Op.like]: `%${queryObj[key]}%` };
+      }
+    }
+
+    const sort = req.query.sort;
+    const order = [sort.split(":")];
+
+    const users = await User.findAndCountAll({ where, offset, limit, order });
+
     res.status(200).json({
       message: "getAllUsers",
-      users,
+      users: users.rows,
+      currentPage: page,
+      totalPages: Math.ceil(users.count / limit),
     });
   } catch (error) {
     console.error(error);
