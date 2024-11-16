@@ -23,9 +23,6 @@ const Product = sequelize.define("product", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  discount: {
-    type: DataTypes.DECIMAL(5, 2),
-  },
   category: {
     type: DataTypes.STRING,
     allowNull: false,
