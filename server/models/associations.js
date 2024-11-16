@@ -34,11 +34,15 @@ OrderDetail.belongsTo(Product, {
 });
 
 Product.belongsToMany(Supplier, {
-    through: SupplierProduct,
-    foreignKey: "product_id"
+  through: SupplierProduct,
+  foreignKey: "product_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 Supplier.belongsToMany(Product, {
   through: SupplierProduct,
   foreignKey: "supplier_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });

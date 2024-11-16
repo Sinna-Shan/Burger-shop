@@ -11,6 +11,8 @@ const SupplierProduct = sequelize.define("product_supplier", {
       key: "product_id",
     },
     allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   },
   supplier_id: {
     type: DataTypes.INTEGER,
@@ -19,6 +21,8 @@ const SupplierProduct = sequelize.define("product_supplier", {
       key: "supplier_id",
     },
     allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   },
   date: {
     type: DataTypes.DATE,

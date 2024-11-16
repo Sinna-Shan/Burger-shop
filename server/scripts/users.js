@@ -363,9 +363,7 @@ const users = [
   },
 ];
 
-
-
-
 (async () => {
-    const complete = await User.bulkCreate(users);
-})()
+  await User.destroy({ where: {}, cascade: true });
+  await User.bulkCreate(users);
+})();
