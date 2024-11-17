@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
 const Product = require("../models/product");
+const Supplier = require("../models/supplier");
 
 exports.getAllProducts = async (req, res) => {
   try {
@@ -126,5 +127,31 @@ exports.deleteProduct = async (req, res) => {
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
+  }
+};
+
+exports.assignSupplierToProduct = async (req, res) => {
+  try {
+    const product_id = req.query.product_id;
+    const supplier_id = req.query.supplier_id;
+
+    const product = await Product.findByPk(product_id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    const supplier = await Supplier.findByPk(supplier_id);
+    if (!supplier) {
+      return res.status(404).json({ message: "Supplier not found" });
+    }
+
+
+await product.addSupplier(supplier);
+
+    res
+      .status(200)
+      .json({ message: "supplier assigned successfully." });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Failed to assign supplier to product.", err.message);
   }
 };

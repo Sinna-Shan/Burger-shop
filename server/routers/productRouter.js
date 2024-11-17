@@ -6,6 +6,7 @@ const {
   getAllProducts,
   getProductById,
   updateProduct,
+  assignSupplierToProduct,
 } = require("../controllers/productController");
 
 router.route("/").get(getAllProducts).post(createProduct);
@@ -14,5 +15,7 @@ router
   .get(getProductById)
   .patch(updateProduct)
   .delete(deleteProduct);
+  
+router.route("/assign").post(assignSupplierToProduct);
 
 module.exports = router;
