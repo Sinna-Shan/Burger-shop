@@ -75,7 +75,13 @@ exports.createProduct = async (req, res) => {
 
 exports.getProductById = async (req, res) => {
   try {
-    res.send("get a product.");
+    const product_id = req.params.id;
+    const product = await Product.findByPk(product_id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ product });
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
@@ -84,7 +90,18 @@ exports.getProductById = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
-    res.send("update a product.");
+    const product_id = req.params.id;
+    const product = await Product.findByPk(product_id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const updated = await Product.update(req.body, {
+      where: { product_id: req.params.id },
+    });
+
+    res.status(200).json({ updated });
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
@@ -93,7 +110,19 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    res.send("delete a product.");
+    const product_id = req.params.id;
+    const product = await Product.findByPk(product_id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const deleted = await Product.destroy({
+      where: { product_id: req.params.id },
+      cascade: true,
+    });
+
+    res.status(200).json({ message: "product deleted successfully.", deleted });
   } catch (err) {
     console.log(err.message);
     res.status(500).send(err.message);
