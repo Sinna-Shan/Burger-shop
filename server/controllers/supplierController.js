@@ -1,4 +1,5 @@
 const Supplier = require("../models/supplier");
+const Product = require("../models/product");
 const { Op } = require("sequelize");
 
 exports.getAllSuppliers = async (req, res) => {
@@ -124,6 +125,83 @@ exports.deleteSupplier = async (req, res) => {
     res.status(500).json({
       message: "Failed to delete supplier.",
       error: error.message,
+    });
+  }
+};
+
+exports.addProductsToSupplier = async (req, res) => {
+  try {
+    const supplier_id = req.query.supplier_id;
+    const product_ids = req.body.products;
+
+    const supplier = await Supplier.findByPk(supplier_id);
+    if (!supplier) {
+      return res.status(404).json({ message: "Supplier not found" });
+    }
+
+    const products = await Product.findAll({
+      where: { product_id: { [Op.in]: product_ids } },
+    });
+
+    if (products.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products found with the provided IDs." });
+    }
+
+    await supplier.addProducts(products); 
+
+    res.status(200).json({
+      message: "Products successfully added to supplier.",
+      addedProducts: products,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Failed to add products to supplier.",
+      error: err.message,
+    });
+  }
+};
+
+exports.removeProductsFromSupplier = async (req, res) => {
+  try {
+    const supplier_id = req.query.supplier_id;
+    const product_ids = req.body.products;
+
+    const supplier = await Supplier.findByPk(supplier_id);
+    if (!supplier) {
+      return res.status(404).json({ message: "Supplier not found" });
+    }
+
+    const products = await Product.findAll({
+      where: { product_id: { [Op.in]: product_ids } },
+    });
+
+    if (products.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products found with the provided IDs." });
+    }
+
+    const hasProducts = await supplier.hasProducts(products);
+
+    if (!hasProducts) {
+      return res.status(400).json({ message: "Products not assigned to supplier." });
+    }
+    
+    await supplier.removeProducts(products);
+
+    res.status(200).json({
+      message: "Products successfully removed from supplier.",
+      addedProducts: products,
+    });
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Failed to remove products from supplier.",
+      error: err.message,
     });
   }
 };

@@ -5,6 +5,8 @@ const {
   getSupplierById,
   updateSupplier,
   deleteSupplier,
+  addProductsToSupplier,
+  removeProductsFromSupplier,
 } = require("../controllers/supplierController");
 
 router.route("/").get(getAllSuppliers).post(createSupplier);
@@ -13,5 +15,8 @@ router
   .get(getSupplierById)
   .patch(updateSupplier)
   .delete(deleteSupplier);
+
+router.route("/assign").post(addProductsToSupplier);
+router.route("/remove").post(removeProductsFromSupplier);
 
 module.exports = router;

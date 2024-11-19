@@ -144,14 +144,45 @@ exports.assignSupplierToProduct = async (req, res) => {
       return res.status(404).json({ message: "Supplier not found" });
     }
 
+    await product.addSupplier(supplier);
 
-await product.addSupplier(supplier);
-
-    res
-      .status(200)
-      .json({ message: "supplier assigned successfully." });
+    res.status(200).json({ message: "supplier assigned successfully." });
   } catch (err) {
     console.log(err);
     res.status(500).send("Failed to assign supplier to product.", err.message);
+  }
+};
+
+exports.removeSupplierFromProduct = async (req, res) => {
+  try {
+    const product_id = req.query.product_id;
+    const supplier_id = req.query.supplier_id;
+
+    const product = await Product.findByPk(product_id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const supplier = await Supplier.findByPk(supplier_id);
+    if (!supplier) {
+      return res.status(404).json({ message: "Supplier not found" });
+    }
+
+    const hasSupplier = await product.hasSupplier(supplier);
+
+    if (!hasSupplier) {
+      return res
+        .status(404)
+        .json({ message: "Supplier not found for this product" });
+    }
+
+    await product.removeSupplier(supplier);
+
+    res.status(200).json({ message: "Supplier removed successfully." });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error removing supplier from product",
+      error: err.message,
+    });
   }
 };
