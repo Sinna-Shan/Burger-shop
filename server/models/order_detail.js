@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 const Order = require("../models/order");
 const Product = require("../models/product");
 
-const OrderDetail = sequelize.define("order_detail", {
+const OrderDetail = sequelize.define("order_details", {
   order_detail_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

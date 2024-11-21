@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 const Product = require("../models/product");
 const SupplierProduct = require("../models/supplier_product");
 
-const Supplier = sequelize.define("supplier", {
+const Supplier = sequelize.define("suppliers", {
   supplier_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

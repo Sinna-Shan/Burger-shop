@@ -7,10 +7,14 @@ const SupplierProduct = require("./supplier_product");
 
 User.hasMany(Order, {
   foreignKey: "user_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 Order.belongsTo(User, {
   foreignKey: "user_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 Order.hasMany(OrderDetail, {
@@ -27,10 +31,14 @@ OrderDetail.belongsTo(Order, {
 
 Product.hasMany(OrderDetail, {
   foreignKey: "product_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 OrderDetail.belongsTo(Product, {
   foreignKey: "product_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 Product.belongsToMany(Supplier, {

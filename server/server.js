@@ -3,6 +3,7 @@ require("dotenv").config();
 const sequelize = require("./database");
 require("./models/associations");
 
+// eslint-disable-next-line no-undef
 const port = process.env.PORT || 5000;
 
 (async () => {
@@ -10,7 +11,7 @@ const port = process.env.PORT || 5000;
     await sequelize.authenticate();
     console.log("Connected to the database successfully.");
 
-    await sequelize.sync();
+    await sequelize.sync({force:false});
     console.log("All models synchronized successfully.");
 
     app.listen(port, () => {
