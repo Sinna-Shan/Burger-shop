@@ -1,7 +1,5 @@
 const sequelize = require("../database");
 const { DataTypes } = require("sequelize");
-const Product = require("../models/product");
-const SupplierProduct = require("../models/supplier_product");
 
 const Supplier = sequelize.define("suppliers", {
   supplier_id: {
@@ -12,16 +10,23 @@ const Supplier = sequelize.define("suppliers", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   contact: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
       isEmail: true,
+      notEmpty: true,
     },
   },
 });

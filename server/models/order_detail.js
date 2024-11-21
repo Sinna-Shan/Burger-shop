@@ -1,7 +1,5 @@
 const sequelize = require("../database");
 const { DataTypes } = require("sequelize");
-const Order = require("../models/order");
-const Product = require("../models/product");
 
 const OrderDetail = sequelize.define("order_details", {
   order_detail_id: {
@@ -12,19 +10,27 @@ const OrderDetail = sequelize.define("order_details", {
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    validate: {
+      isNumeric: true,
+      min: 1,
+    },
   },
   unit_price: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
+    validate: {
+      isNumeric: true,
+      min: 1,
+    },
   },
   discount: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
+    validate: {
+      isNumeric: true,
+      min: 0,
+    },
   },
 });
-
-
-
-
 
 module.exports = OrderDetail;

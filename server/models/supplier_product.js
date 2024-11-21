@@ -24,6 +24,10 @@ const SupplierProduct = sequelize.define("product_supplier", {
   },
   quantity: {
     type: DataTypes.INTEGER,
+    validate: {
+      isNumeric: true,
+      min: 1,
+    },
   },
 });
 

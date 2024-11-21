@@ -35,6 +35,10 @@ exports.placeOrder = async (req, res) => {
       for (const item of orderDetails) {
         const product = await Product.findByPk(item.product_id);
 
+        if (!product) {
+          throw new Error(`No such product with id ${item.product_id}`);
+        }
+
         if (!product || product.quantity < item.quantity) {
           throw new Error(
             `Insufficient stock for product ${item.product_id}. Only ${product.quantity} left in stock.`
