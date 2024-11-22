@@ -36,3 +36,22 @@ exports.login = async (req, res) => {
     return res.status(500).json({ message: e.message });
   }
 };
+
+exports.logout = async (req, res) => {
+  try {
+    req.session.destroy((err) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ message: "Logout failed, please try again." });
+      }
+
+      res.clearCookie("connect.sid");
+
+      return res.status(200).json({ message: "Logout successful." });
+    });
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).json({ message: e.message });
+  }
+};
