@@ -6,11 +6,16 @@ import PlaceOrder from "./place-order/PlaceOrder";
 import Customers from "./customers/Customers";
 import Orders from "./orders/Orders";
 import Items from "./items/Items";
+import ProtectedRoute from "../pages/auth/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {

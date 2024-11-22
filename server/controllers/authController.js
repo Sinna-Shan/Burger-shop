@@ -16,6 +16,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { user_name, password } = req.body;
+    console.log(req.body);
     const user = await User.findOne({
       where: {
         [Op.or]: [{ user_name: user_name }, { email: user_name }],
