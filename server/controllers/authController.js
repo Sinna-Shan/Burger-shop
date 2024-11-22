@@ -29,7 +29,7 @@ exports.login = async (req, res) => {
     if (!user.validPassword(password)) {
       return res.status(401).json({ message: "Invalid login credentials." });
     }
-
+    req.session.user = { user_id: user.user_id, role: user.role };
     res.status(200).json({ message: "login successful." });
   } catch (e) {
     console.log(e.message);

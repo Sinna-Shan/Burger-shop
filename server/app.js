@@ -1,29 +1,28 @@
 /* eslint-disable no-undef */
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const session = require("express-session");
 
 // routers
 
-const userRouter = require('./routers/userRouter');
+const userRouter = require("./routers/userRouter");
 const productRouter = require("./routers/productRouter");
 const supplierRouter = require("./routers/supplierRouter");
-const orderRouter = require('./routers/orderRouter');
+const orderRouter = require("./routers/orderRouter");
 const authRouter = require("./routers/authRouter");
 
 const app = express();
-
-app.use(express.json());
-app.use(cors());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-      cookie: { secure: false },
-    name:"shop"
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 },
   })
 );
+
+app.use(express.json());
+app.use(cors());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
