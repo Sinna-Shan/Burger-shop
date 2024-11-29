@@ -16,7 +16,6 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { user_name, password } = req.body;
-    console.log(req.body);
     const user = await User.findOne({
       where: {
         [Op.or]: [{ user_name: user_name }, { email: user_name }],
@@ -54,5 +53,13 @@ exports.logout = async (req, res) => {
   } catch (e) {
     console.log(e.message);
     return res.status(500).json({ message: e.message });
+  }
+};
+
+exports.checkSession = (req, res) => {
+  if (req.session.user) {
+    res.status(200).json({ user: req.session.user });
+  } else {
+    res.status(401).json({ message: "No user session found." });
   }
 };

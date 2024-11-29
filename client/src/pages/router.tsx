@@ -7,6 +7,8 @@ import Customers from "./customers/Customers";
 import Orders from "./orders/Orders";
 import Items from "./items/Items";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
+import Signup from "../pages/auth/Signup";
+import Login from "../pages/auth/Login";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
         element: <Orders />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
 ]);
 
