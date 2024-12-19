@@ -1,23 +1,30 @@
 /* eslint-disable no-constant-condition */
-import { useEffect} from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import axiosInstance from "../../config/axiosConfig";
 
 const ProtectedRoute = ({ children }) => {
+  const navigate = useNavigate();
   useEffect(function () {
     async function checkUserSession() {
       try {
-        const user = await axiosInstance.get("/auth/logout", {
+        const res = await axiosInstance.get("/auth/checkSession", {
           headers: {
             "Content-Type": "application/json",
           },
         });
 
-        if (user) {
-          return <Navigate to="/login" />;
+        if (res.status === 200 && res.data.user) {
+          console.log(res.data.user);
+        } else {
+          return navigate("/login");
         }
       } catch (err) {
-        console.log(err.message);
+        if (err.response && err.response.status === 401) {
+          navigate("/login");
+        } else {
+          console.error("Error checking session", err);
+        }
       }
     }
     checkUserSession();
