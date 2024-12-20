@@ -1,8 +1,8 @@
 import React from "react";
-import { Form, Input, Button, Popconfirm } from "antd";
+import { Form, Input, Button } from "antd";
 import type { FormProps } from "antd";
 import axiosInstance from "../../config/axiosConfig";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type FieldType = {
   username?: string;
@@ -26,8 +26,7 @@ const LoginPage = () => {
     }
   };
   return (
-    <main className="flex h-screen w-full items-center justify-between gap-4 bg-slate-900 p-4">
-      <section className="h-full w-1/2 rounded-md bg-[url('https://images.unsplash.com/photo-1664575602276-acd073f104c1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover"></section>
+    <main className="flex h-screen w-full items-center justify-center gap-4 bg-slate-900 p-4">
       <section className="flex h-full w-1/2 flex-col items-center justify-center text-white">
         <h1 className="mb-8 text-2xl uppercase">Log in</h1>
         <Form
@@ -67,6 +66,15 @@ const LoginPage = () => {
             </Button>
           </Form.Item>
         </Form>
+        <div className="mt-4 w-full px-24">
+          <p className="mb-5">don't have an account?</p>
+          <Link
+            to="/signup"
+            className="custom-hover h-12 rounded-md border px-4 py-2 text-lg text-blue-100"
+          >
+            Sign up
+          </Link>
+        </div>
         <hr className="" />
       </section>
     </main>

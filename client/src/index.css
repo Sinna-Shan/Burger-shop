@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 .custom-hover:hover {
-  @apply text-slate-900 !important; 
+  @apply text-slate-100 !important; 
+  @apply bg-blue-600 !important;
 }
