@@ -4,7 +4,7 @@ exports.register = async (req, res) => {
   try {
     const { user_id, role } = await User.create(req.body);
     req.session.user = { user_id, role };
-    res.status(201).json({ message: "registration successful." });
+    res.status(201).json({ message: "registration successful.", user_id });
   } catch (e) {
     console.log(e.parent);
     return res
@@ -60,8 +60,6 @@ exports.checkSession = (req, res) => {
   if (req.session.user) {
     res.status(200).json({ user: req.session.user });
   } else {
-    res
-      .status(401)
-      .json({ message: "No user session found.", user: null });
+    res.status(401).json({ message: "No user session found.", user: null });
   }
 };

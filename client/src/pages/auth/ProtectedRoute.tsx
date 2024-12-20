@@ -1,6 +1,6 @@
 /* eslint-disable no-constant-condition */
 import { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import axiosInstance from "../../config/axiosConfig";
 
 const ProtectedRoute = ({ children }) => {
