@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 export interface Item {
-  code: string;
+  brand: string;
+  category: string;
+  createdAt: string;
+  description: string;
   name: string;
-  desc: string;
-  qty: number;
-  price: number;
-  discount: number;
+  price: string;
+  product_id: number;
+  quantity: number;
 }
 
 export interface ItemModelType {

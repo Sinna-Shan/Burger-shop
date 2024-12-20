@@ -14,12 +14,13 @@ const ItemModal = ({
 
   const initialValues = useMemo(() => {
     return {
-      code: recordData?.code ?? "",
+      code: recordData?.product_id ?? "",
       name: recordData?.name ?? "",
-      desc: recordData?.desc ?? "",
-      qty: recordData?.qty ?? "",
+      desc: recordData?.description ?? "",
+      qty: recordData?.quantity ?? "",
       price: recordData?.price ?? "",
-      discount: recordData?.discount ?? "",
+      category: recordData?.category ?? "",
+      brand: recordData?.brand ?? "",
     };
   }, [recordData]);
 
@@ -28,7 +29,7 @@ const ItemModal = ({
     console.log(values);
     if (recordData) {
       const updatedItems = items.map((item) =>
-        item.code === recordData.code ? { ...item, ...values } : item
+        item.product_id === recordData.product_id ? { ...item, ...values } : item
       );
       setItems(updatedItems);
     } else {
@@ -53,7 +54,7 @@ const ItemModal = ({
       open={open}
       onCancel={() => onClose()}
       destroyOnClose
-      title="Create Item"
+      title={!recordData ? "Create Item" : "Update Item"}
       onOk={handleSave}
     >
       <Form
@@ -81,6 +82,20 @@ const ItemModal = ({
           <Input placeholder="Item description" />
         </Form.Item>
         <Form.Item
+          name="category"
+          label="Category"
+          rules={[{ required: true, message: "Item category is required!" }]}
+        >
+          <Input placeholder="Item category" />
+        </Form.Item>
+        <Form.Item
+          name="brand"
+          label="Brand"
+          rules={[{ required: true, message: "Item brand is required!" }]}
+        >
+          <Input placeholder="Item brand" />
+        </Form.Item>
+        <Form.Item
           name="qty"
           label="Quantity"
           rules={[{ required: true, message: "Item quantity is required!" }]}
@@ -93,9 +108,6 @@ const ItemModal = ({
           rules={[{ required: true, message: "Item price is required!" }]}
         >
           <Input placeholder="Item price" />
-        </Form.Item>
-        <Form.Item name="discount" label="Discount">
-          <Input placeholder="Item discount" />
         </Form.Item>
       </Form>
     </Modal>
